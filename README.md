@@ -31,6 +31,7 @@ python -m expense_tracker <command> [options]
 | `add AMOUNT CATEGORY DATE [--note NOTE]` | Record an expense. `DATE` is `YYYY-MM-DD`. |
 | `list [--category CATEGORY]` | List expenses, optionally filtered by category. |
 | `summary [--month YYYY-MM]` | Show total spending per category, optionally filtered to one month. |
+| `top [--limit N]` | Show the N largest expenses, biggest first (default 3). |
 | `delete ID` | Delete an expense by its id. |
 
 ### Examples
@@ -41,6 +42,7 @@ python -m expense_tracker list
 python -m expense_tracker list --category groceries
 python -m expense_tracker summary
 python -m expense_tracker summary --month 2026-01
+python -m expense_tracker top --limit 2
 python -m expense_tracker delete 1
 ```
 
@@ -67,6 +69,7 @@ expense_tracker/
     add.py
     list_cmd.py
     summary.py
+    top.py
     delete.py
 tests/                 # pytest suite
 ```
