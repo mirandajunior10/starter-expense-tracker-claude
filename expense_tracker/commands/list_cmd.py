@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from ..models import Expense
 from ..money import format_amount
 
 NAME = "list"
@@ -17,6 +18,13 @@ def add_parser(subparsers) -> None:
     )
 
 
+def format_expense(expense: Expense) -> str:
+    """Render one expense as a single ``list``-style output line."""
+    note = f"  ({expense.note})" if expense.note else ""
+    amount = format_amount(expense.amount_cents)
+    return f"#{expense.id}  {expense.date}  {amount:>10}  {expense.category}{note}"
+
+
 def handle(args, store) -> int:
     expenses = store.load()
     if args.category is not None:
@@ -26,7 +34,6 @@ def handle(args, store) -> int:
         print("No expenses found.")
         return 0
 
-    for e in expenses:
-        note = f"  ({e.note})" if e.note else ""
-        print(f"#{e.id}  {e.date}  {format_amount(e.amount_cents):>10}  {e.category}{note}")
+    for expense in expenses:
+        print(format_expense(expense))
     return 0
